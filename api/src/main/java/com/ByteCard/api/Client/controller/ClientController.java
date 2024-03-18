@@ -85,7 +85,10 @@ public class ClientController {
 
     }
 
+    @GetMapping("pesquisaClient/{cpf}")
+    public Client pesquisaCliente(@PathVariable("cpf") String cpf){
+        return  repository.CLIENT(cpf);
 
-
+    }
 
 }

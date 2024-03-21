@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -60,7 +61,7 @@ public class ClientController {
     }
     @GetMapping
     public List<DadosListClient> clientsTelaPrincipal(){
-        return repository.findAllByAtivoTrue().stream().map(DadosListClient::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListClient::new).sorted((Comparator.comparing(o -> o.name().toUpperCase()))).toList();
 
     }
 

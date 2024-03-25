@@ -79,10 +79,15 @@ public class CardController {
     @PutMapping
     @Transactional
     @RequestMapping("/{number:[0-9]+}")
-    public void ativarCard(@PathVariable("number") long numberCard){
+    public String ativarCard(@PathVariable("number") long numberCard){
         System.out.println(numberCard);
         Card card = repository.CARD(numberCard);
-        card.ativarCancelar();
+        if(card != null ){
+            card.ativarCancelar();
+            return "ATIVO";
+        }else {
+            return "ERRO";
+        }
     }
     @PutMapping
     @Transactional
@@ -104,5 +109,18 @@ public class CardController {
     @Transactional
     public void excluir(@PathVariable long id){
         repository.deleteById(id);
+    }
+
+    @PostMapping("/desativaCard/{number:[0-9]+}")
+    @Transactional
+    public String cancelar(@PathVariable("number") long numbercard){
+        Card card =repository.CARD(numbercard);
+        if(card != null){
+            card.cancelar();
+            return "cancelado";
+
+        }else{
+            return "ERRO";
+        }
     }
 }
